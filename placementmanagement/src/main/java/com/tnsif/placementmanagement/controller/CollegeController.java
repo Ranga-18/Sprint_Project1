@@ -4,32 +4,32 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-import com.tnsif.placementmanagement.entity.Placement;
-import com.tnsif.placementmanagement.service.PlacementService;
+import com.tnsif.placementmanagement.entity.College;
+import com.tnsif.placementmanagement.service.CollegeService;
 import jakarta.persistence.NoResultException;
 
 @RestController
-@RequestMapping("/placement")
-public class PlacementController {
+@RequestMapping("/college")
+public class CollegeController {
 
     @Autowired
-    private PlacementService service;
+    private CollegeService service;
 
     @GetMapping
-    public List<Placement> list() {
+    public List<College> list() {
         return service.listAll();
     }
 
     @PostMapping
-    public void add(@RequestBody Placement p) {
-        service.save(p);
+    public void add(@RequestBody College c) {
+        service.save(c);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Placement> get(@PathVariable Integer id) {
+    public ResponseEntity<College> get(@PathVariable Integer id) {
         try {
-            Placement placement = service.get(id);
-            return new ResponseEntity<>(placement, HttpStatus.OK);
+            College college = service.get(id);
+            return new ResponseEntity<>(college, HttpStatus.OK);
         } catch (NoResultException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -41,13 +41,11 @@ public class PlacementController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Placement> update(@PathVariable Integer id, @RequestBody Placement updated) {
+    public ResponseEntity<College> update(@PathVariable Integer id, @RequestBody College updated) {
         try {
-            Placement existing = service.get(id);
-            existing.setCompanyName(updated.getCompanyName());
-            existing.setDate(updated.getDate());
-            existing.setQualification(updated.getQualification());
-            existing.setYear(updated.getYear());
+            College existing = service.get(id);
+            existing.setName(updated.getName());
+            existing.setLocation(updated.getLocation());
             service.update(existing);
             return new ResponseEntity<>(existing, HttpStatus.OK);
         } catch (NoResultException e) {

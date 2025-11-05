@@ -4,32 +4,32 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-import com.tnsif.placementmanagement.entity.Placement;
-import com.tnsif.placementmanagement.service.PlacementService;
+import com.tnsif.placementmanagement.entity.Certificate;
+import com.tnsif.placementmanagement.service.CertificateService;
 import jakarta.persistence.NoResultException;
 
 @RestController
-@RequestMapping("/placement")
-public class PlacementController {
+@RequestMapping("/certificate")
+public class CertificateController {
 
     @Autowired
-    private PlacementService service;
+    private CertificateService service;
 
     @GetMapping
-    public List<Placement> list() {
+    public List<Certificate> list() {
         return service.listAll();
     }
 
     @PostMapping
-    public void add(@RequestBody Placement p) {
-        service.save(p);
+    public void add(@RequestBody Certificate c) {
+        service.save(c);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Placement> get(@PathVariable Integer id) {
+    public ResponseEntity<Certificate> get(@PathVariable Integer id) {
         try {
-            Placement placement = service.get(id);
-            return new ResponseEntity<>(placement, HttpStatus.OK);
+            Certificate cert = service.get(id);
+            return new ResponseEntity<>(cert, HttpStatus.OK);
         } catch (NoResultException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -41,13 +41,11 @@ public class PlacementController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Placement> update(@PathVariable Integer id, @RequestBody Placement updated) {
+    public ResponseEntity<Certificate> update(@PathVariable Integer id, @RequestBody Certificate updated) {
         try {
-            Placement existing = service.get(id);
-            existing.setCompanyName(updated.getCompanyName());
-            existing.setDate(updated.getDate());
-            existing.setQualification(updated.getQualification());
+            Certificate existing = service.get(id);
             existing.setYear(updated.getYear());
+            existing.setCollegeName(updated.getCollegeName());
             service.update(existing);
             return new ResponseEntity<>(existing, HttpStatus.OK);
         } catch (NoResultException e) {

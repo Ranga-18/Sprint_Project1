@@ -4,32 +4,32 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-import com.tnsif.placementmanagement.entity.Placement;
-import com.tnsif.placementmanagement.service.PlacementService;
+import com.tnsif.placementmanagement.entity.User;
+import com.tnsif.placementmanagement.service.UserService;
 import jakarta.persistence.NoResultException;
 
 @RestController
-@RequestMapping("/placement")
-public class PlacementController {
+@RequestMapping("/user")
+public class UserController {
 
     @Autowired
-    private PlacementService service;
+    private UserService service;
 
     @GetMapping
-    public List<Placement> list() {
+    public List<User> list() {
         return service.listAll();
     }
 
     @PostMapping
-    public void add(@RequestBody Placement p) {
-        service.save(p);
+    public void add(@RequestBody User u) {
+        service.save(u);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Placement> get(@PathVariable Integer id) {
+    public ResponseEntity<User> get(@PathVariable Integer id) {
         try {
-            Placement placement = service.get(id);
-            return new ResponseEntity<>(placement, HttpStatus.OK);
+            User user = service.get(id);
+            return new ResponseEntity<>(user, HttpStatus.OK);
         } catch (NoResultException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -41,13 +41,12 @@ public class PlacementController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Placement> update(@PathVariable Integer id, @RequestBody Placement updated) {
+    public ResponseEntity<User> update(@PathVariable Integer id, @RequestBody User updated) {
         try {
-            Placement existing = service.get(id);
-            existing.setCompanyName(updated.getCompanyName());
-            existing.setDate(updated.getDate());
-            existing.setQualification(updated.getQualification());
-            existing.setYear(updated.getYear());
+            User existing = service.get(id);
+            existing.setName(updated.getName());
+            existing.setType(updated.getType());
+            existing.setPassword(updated.getPassword());
             service.update(existing);
             return new ResponseEntity<>(existing, HttpStatus.OK);
         } catch (NoResultException e) {
