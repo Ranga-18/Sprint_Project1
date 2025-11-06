@@ -12,9 +12,23 @@ public class PlacementService {
     @Autowired
     private PlacementRepository repo;
 
-    public List<Placement> listAll() { return repo.findAll(); }
-    public void save(Placement p) { repo.save(p); }
-    public Placement get(Integer id) { return repo.findById(id).get(); }
-    public void delete(Integer id) { repo.deleteById(id); }
-    public void update(Placement p) { repo.save(p); }
+    public List<Placement> listAll() {
+        return repo.findAll();
+    }
+
+    public void save(Placement p) {
+        repo.save(p);
+    }
+
+    public Placement get(Integer id) {
+        return repo.findById(id).get();
+    }
+
+    public void delete(Integer id) {
+        repo.deleteById(id);
+    }
+
+    public void update(Placement p) {
+        repo.save(p);
+    }
 }

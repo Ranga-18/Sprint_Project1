@@ -12,27 +12,22 @@ public class CollegeService {
     @Autowired
     private CollegeRepository repo;
 
-    // Retrieve all colleges
     public List<College> listAll() {
         return repo.findAll();
     }
 
-    // Save a new college
     public void save(College c) {
         repo.save(c);
     }
 
-    // Get a specific college
     public College get(Integer id) {
         return repo.findById(id).get();
     }
 
-    // Delete a college
     public void delete(Integer id) {
         repo.deleteById(id);
     }
 
-    // Update college
     public void update(College c) {
         repo.save(c);
     }

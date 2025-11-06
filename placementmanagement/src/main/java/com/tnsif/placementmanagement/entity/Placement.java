@@ -1,58 +1,108 @@
 package com.tnsif.placementmanagement.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
+import jakarta.persistence.*;
+import java.time.LocalDate;
 
 @Entity
+@Table(name = "placement")
 public class Placement {
-    @Id
-    private int id;
-    @Column(nullable = false)
-    private String companyName;
-    private String date;
-    private String qualification;
-    private String year;
 
-    public Placement() {}
-    public Placement(int id, String companyName, String date, String qualification, String year) {
-        this.id = id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "company_name", nullable = false)
+    private String companyName;
+
+    @Column(name = "date", nullable = false)
+    private LocalDate date;
+
+    @Column(name = "qualification", nullable = false)
+    private String qualification;
+
+    @Column(name = "year", nullable = false)
+    private int year;
+
+    @Column(name = "student_name", nullable = false)
+    private String studentName;
+
+    @Column(name = "college_name", nullable = false)
+    private String collegeName;
+
+    // ✅ Constructors
+    public Placement() {
+    }
+
+    public Placement(String companyName, LocalDate date, String qualification, int year, String studentName, String collegeName) {
         this.companyName = companyName;
         this.date = date;
         this.qualification = qualification;
         this.year = year;
+        this.studentName = studentName;
+        this.collegeName = collegeName;
     }
-    // Getters and Setters
-	public Object getCompanyName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public Object getQualification() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public Object getYear() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public Object getDate() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public void setYear(Object year2) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setQualification(Object qualification2) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setDate(Object date2) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setCompanyName(Object companyName2) {
-		// TODO Auto-generated method stub
-		
-	}
+
+    // ✅ Getters and Setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public String getQualification() {
+        return qualification;
+    }
+
+    public void setQualification(String qualification) {
+        this.qualification = qualification;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
+    public String getCollegeName() {
+        return collegeName;
+    }
+
+    public void setCollegeName(String collegeName) {
+        this.collegeName = collegeName;
+    }
+
+    @Override
+    public String toString() {
+        return "Placement [id=" + id + ", companyName=" + companyName + ", date=" + date + 
+               ", qualification=" + qualification + ", year=" + year + 
+               ", studentName=" + studentName + ", collegeName=" + collegeName + "]";
+    }
 }

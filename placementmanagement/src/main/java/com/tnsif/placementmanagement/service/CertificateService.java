@@ -12,9 +12,23 @@ public class CertificateService {
     @Autowired
     private CertificateRepository repo;
 
-    public List<Certificate> listAll() { return repo.findAll(); }
-    public void save(Certificate c) { repo.save(c); }
-    public Certificate get(Integer id) { return repo.findById(id).get(); }
-    public void delete(Integer id) { repo.deleteById(id); }
-    public void update(Certificate c) { repo.save(c); }
+    public List<Certificate> listAll() {
+        return repo.findAll();
+    }
+
+    public void save(Certificate c) {
+        repo.save(c);
+    }
+
+    public Certificate get(Integer id) {
+        return repo.findById(id).get();
+    }
+
+    public void delete(Integer id) {
+        repo.deleteById(id);
+    }
+
+    public void update(Certificate c) {
+        repo.save(c);
+    }
 }

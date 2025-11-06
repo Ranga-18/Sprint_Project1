@@ -1,105 +1,64 @@
 package com.tnsif.placementmanagement.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "student")
 public class Student {
 
     @Id
-    @Column(name = "student_id")
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int studentId;
 
-    @Column(name = "name")
-    private String name;
+    @Column(nullable = false)
+    private String studentName;
 
-    @Column(name = "college")
-    private String college;
+    @Column(nullable = false)
+    private String collegeName;
 
-    @Column(name = "qualification")
+    @Column(nullable = false)
     private String qualification;
 
-    @Column(name = "course")
+    @Column(nullable = false)
     private String course;
 
-    @Column(name = "year")
+    @Column(nullable = false)
     private int year;
 
-    @Column(name = "certificate_id")
-    private int certificateId;
+    @Column(nullable = false)
+    private double percentage;
 
     public Student() {}
 
-    public Student(int id, String name, String college, String qualification, String course, int year, int certificateId) {
-        this.id = id;
-        this.name = name;
-        this.college = college;
+    public Student(String studentName, String collegeName, String qualification, String course, int year, double percentage) {
+        this.studentName = studentName;
+        this.collegeName = collegeName;
         this.qualification = qualification;
         this.course = course;
         this.year = year;
-        this.certificateId = certificateId;
+        this.percentage = percentage;
     }
 
-	public Object getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    // Getters and Setters
+    public int getStudentId() { return studentId; }
+    public void setStudentId(int studentId) { this.studentId = studentId; }
+    public String getStudentName() { return studentName; }
+    public void setStudentName(String studentName) { this.studentName = studentName; }
+    public String getCollegeName() { return collegeName; }
+    public void setCollegeName(String collegeName) { this.collegeName = collegeName; }
+    public String getQualification() { return qualification; }
+    public void setQualification(String qualification) { this.qualification = qualification; }
+    public String getCourse() { return course; }
+    public void setCourse(String course) { this.course = course; }
+    public int getYear() { return year; }
+    public void setYear(int year) { this.year = year; }
+    public double getPercentage() { return percentage; }
+    public void setPercentage(double percentage) { this.percentage = percentage; }
 
-	public Object getCollege() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Object getCourse() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Object getQualification() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Object getYear() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Object getCertificateId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void setCertificateId(Object certificateId2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setQualification(Object qualification2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setYear(Object year2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setCourse(Object course2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setCollege(Object college2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setName(Object name2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-    // Getters and setters...
+    @Override
+    public String toString() {
+        return "Student [studentId=" + studentId + ", studentName=" + studentName + ", collegeName=" + collegeName +
+               ", qualification=" + qualification + ", course=" + course + ", year=" + year +
+               ", percentage=" + percentage + "]";
+    }
 }

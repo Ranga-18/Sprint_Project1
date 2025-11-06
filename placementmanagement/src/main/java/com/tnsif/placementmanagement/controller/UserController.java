@@ -4,8 +4,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+
 import com.tnsif.placementmanagement.entity.User;
 import com.tnsif.placementmanagement.service.UserService;
+
 import jakarta.persistence.NoResultException;
 
 @RestController
@@ -21,8 +23,8 @@ public class UserController {
     }
 
     @PostMapping
-    public void add(@RequestBody User u) {
-        service.save(u);
+    public void add(@RequestBody User user) {
+        service.save(user);
     }
 
     @GetMapping("/{id}")
@@ -41,14 +43,16 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> update(@PathVariable Integer id, @RequestBody User updated) {
+    public ResponseEntity<User> update(@PathVariable Integer id, @RequestBody User updateUser) {
         try {
-            User existing = service.get(id);
-            existing.setName(updated.getName());
-            existing.setType(updated.getType());
-            existing.setPassword(updated.getPassword());
-            service.update(existing);
-            return new ResponseEntity<>(existing, HttpStatus.OK);
+            User exist = service.get(id);
+            exist.setUserName(updateUser.getUserName());
+            exist.setPassword(updateUser.getPassword());
+            exist.setRole(updateUser.getRole());
+            exist.setEmail(updateUser.getEmail());
+            exist.setPhone(updateUser.getPhone());
+            service.update(exist);
+            return new ResponseEntity<>(exist, HttpStatus.OK);
         } catch (NoResultException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

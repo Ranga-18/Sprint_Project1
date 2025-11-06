@@ -2,59 +2,59 @@ package com.tnsif.placementmanagement.controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+
 import com.tnsif.placementmanagement.entity.Student;
 import com.tnsif.placementmanagement.service.StudentService;
 
 import jakarta.persistence.NoResultException;
 
 @RestController
+@RequestMapping("/student")
 public class StudentController {
 
     @Autowired
     private StudentService service;
 
-    @GetMapping("/students")
+    @GetMapping
     public List<Student> list() {
         return service.listAll();
     }
 
-    @PostMapping("/students")
-    public void add(@RequestBody Student s) {
-        service.save(s);
+    @PostMapping
+    public void add(@RequestBody Student student) {
+        service.save(student);
     }
 
-    @GetMapping("/students/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Student> get(@PathVariable Integer id) {
         try {
-            Student s = service.get(id);
-            return new ResponseEntity<Student>(s, HttpStatus.OK);
+            Student student = service.get(id);
+            return new ResponseEntity<>(student, HttpStatus.OK);
         } catch (NoResultException e) {
-            return new ResponseEntity<Student>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @DeleteMapping("/students/{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) {
         service.delete(id);
     }
 
-    @PutMapping("/students/{id}")
-    public ResponseEntity<Student> update(@PathVariable Integer id, @RequestBody Student updated) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Student> update(@PathVariable Integer id, @RequestBody Student updateStudent) {
         try {
             Student exist = service.get(id);
-            exist.setName(updated.getName());
-            exist.setCollege(updated.getCollege());
-            exist.setCourse(updated.getCourse());
-            exist.setQualification(updated.getQualification());
-            exist.setYear(updated.getYear());
-            exist.setCertificateId(updated.getCertificateId());
+            exist.setStudentName(updateStudent.getStudentName());
+            exist.setCourse(updateStudent.getCourse());
+            exist.setYear(updateStudent.getYear());
+            exist.setCollegeName(updateStudent.getCollegeName());
+            exist.setQualification(updateStudent.getQualification());
             service.update(exist);
-            return new ResponseEntity<Student>(exist, HttpStatus.OK);
+            return new ResponseEntity<>(exist, HttpStatus.OK);
         } catch (NoResultException e) {
-            return new ResponseEntity<Student>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }

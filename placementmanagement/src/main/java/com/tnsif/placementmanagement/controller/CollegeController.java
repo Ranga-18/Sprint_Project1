@@ -4,8 +4,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+
 import com.tnsif.placementmanagement.entity.College;
 import com.tnsif.placementmanagement.service.CollegeService;
+
 import jakarta.persistence.NoResultException;
 
 @RestController
@@ -21,8 +23,8 @@ public class CollegeController {
     }
 
     @PostMapping
-    public void add(@RequestBody College c) {
-        service.save(c);
+    public void add(@RequestBody College college) {
+        service.save(college);
     }
 
     @GetMapping("/{id}")
@@ -41,13 +43,16 @@ public class CollegeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<College> update(@PathVariable Integer id, @RequestBody College updated) {
+    public ResponseEntity<College> update(@PathVariable Integer id, @RequestBody College updateCollege) {
         try {
-            College existing = service.get(id);
-            existing.setName(updated.getName());
-            existing.setLocation(updated.getLocation());
-            service.update(existing);
-            return new ResponseEntity<>(existing, HttpStatus.OK);
+            College exist = service.get(id);
+            exist.setCollegeName(updateCollege.getCollegeName());
+            exist.setLocation(updateCollege.getLocation());
+            exist.setPrincipalName(updateCollege.getPrincipalName());
+            exist.setEmail(updateCollege.getEmail());
+            exist.setPhone(updateCollege.getPhone());
+            service.update(exist);
+            return new ResponseEntity<>(exist, HttpStatus.OK);
         } catch (NoResultException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

@@ -4,8 +4,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+
 import com.tnsif.placementmanagement.entity.Certificate;
 import com.tnsif.placementmanagement.service.CertificateService;
+
 import jakarta.persistence.NoResultException;
 
 @RestController
@@ -21,15 +23,15 @@ public class CertificateController {
     }
 
     @PostMapping
-    public void add(@RequestBody Certificate c) {
-        service.save(c);
+    public void add(@RequestBody Certificate certificate) {
+        service.save(certificate);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Certificate> get(@PathVariable Integer id) {
         try {
-            Certificate cert = service.get(id);
-            return new ResponseEntity<>(cert, HttpStatus.OK);
+            Certificate certificate = service.get(id);
+            return new ResponseEntity<>(certificate, HttpStatus.OK);
         } catch (NoResultException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -41,13 +43,16 @@ public class CertificateController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Certificate> update(@PathVariable Integer id, @RequestBody Certificate updated) {
+    public ResponseEntity<Certificate> update(@PathVariable Integer id, @RequestBody Certificate updateCert) {
         try {
-            Certificate existing = service.get(id);
-            existing.setYear(updated.getYear());
-            existing.setCollegeName(updated.getCollegeName());
-            service.update(existing);
-            return new ResponseEntity<>(existing, HttpStatus.OK);
+            Certificate exist = service.get(id);
+            exist.setCertificateName(updateCert.getCertificateName());
+            exist.setIssueDate(updateCert.getIssueDate());
+            exist.setExpiryDate(updateCert.getExpiryDate());
+            exist.setStudentName(updateCert.getStudentName());
+            exist.setCollegeName(updateCert.getCollegeName());
+            service.update(exist);
+            return new ResponseEntity<>(exist, HttpStatus.OK);
         } catch (NoResultException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
